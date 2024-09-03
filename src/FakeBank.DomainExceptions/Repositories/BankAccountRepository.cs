@@ -18,7 +18,7 @@ namespace FakeBank.DomainExceptions.Repositories
             };
         }
 
-        public BankAccount GetAccountByNumber(string accountNumber)
+        public virtual BankAccount GetAccountByNumber(string accountNumber)
         {
             var account = _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
             if (account == null)

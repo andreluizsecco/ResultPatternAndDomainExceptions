@@ -50,5 +50,13 @@ namespace FakeBank.ResultPattern.Models
                 return Result.Ok();
             }
         }
+
+        public decimal GetBalance()
+        {
+            lock (_balanceLock)
+            {
+                return _balance;
+            }
+        }
     }
 }

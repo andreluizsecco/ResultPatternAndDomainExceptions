@@ -19,12 +19,13 @@ namespace FakeBank.ResultPattern.Repositories
             };
         }
 
-        public Result<BankAccount> GetAccountByNumber(string accountNumber)
+        public virtual Result<BankAccount> GetAccountByNumber(string accountNumber)
         {
             var account = _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
             if (account == null)
                 return Result.Fail(DomainErrors.AccountNotFound);
-            return account;
+            
+            return Result.Ok(account);
         }
     }
 }

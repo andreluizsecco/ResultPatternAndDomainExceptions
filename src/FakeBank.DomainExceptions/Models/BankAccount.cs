@@ -46,5 +46,13 @@ namespace FakeBank.DomainExceptions.Models
                 _balance += amount;
             }
         }
+
+        public decimal GetBalance()
+        {
+            lock (_balanceLock)
+            {
+                return _balance;
+            }
+        }
     }
 }

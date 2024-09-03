@@ -7,8 +7,8 @@ namespace FakeBank.ResultPattern.Services
     {
         private readonly BankAccountRepository _bankAccountRepository;
 
-        public BankTransferService() =>
-            _bankAccountRepository = new BankAccountRepository();
+        public BankTransferService(BankAccountRepository bankAccountRepository) =>
+            _bankAccountRepository = bankAccountRepository;
 
         public Result TransferFunds(string sourceAccountNumber, string destinationAccountNumber, decimal amount)
         {

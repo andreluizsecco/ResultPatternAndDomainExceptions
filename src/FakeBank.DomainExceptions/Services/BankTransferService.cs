@@ -1,5 +1,4 @@
 ﻿using FakeBank.DomainExceptions.Exceptions;
-using FakeBank.DomainExceptions.Models;
 using FakeBank.DomainExceptions.Repositories;
 
 namespace FakeBank.DomainExceptions.Services
@@ -8,10 +7,10 @@ namespace FakeBank.DomainExceptions.Services
     {
         private readonly BankAccountRepository _bankAccountRepository;
 
-        public BankTransferService() =>
-            _bankAccountRepository = new BankAccountRepository();
+        public BankTransferService(BankAccountRepository bankAccountRepository) =>
+            _bankAccountRepository = bankAccountRepository;
 
-        public bool TransferFunds(string sourceAccountNumber, string destinationAccountNumber, decimal amount)
+        public void TransferFunds(string sourceAccountNumber, string destinationAccountNumber, decimal amount)
         {
             try
             {
@@ -25,8 +24,6 @@ namespace FakeBank.DomainExceptions.Services
                 // Fluxo normal de saque e depósito
                 sourceAccount.Withdraw(amount);
                 destinationAccount.Deposit(amount);
-
-                return true;
             }
             catch (AccountBlockedException ex)
             {
@@ -37,17 +34,17 @@ namespace FakeBank.DomainExceptions.Services
             {
                 // TODO: Logar o erro
                 // TODO: Rollback do saque
-                return false;
+                throw;
             }
             catch (AccountNotFoundException ex)
             {
                 // TODO: Logar o erro
-                return false;
+                throw;
             }
             catch (InvalidTransactionAmountException ex)
             {
                 // TODO: Logar o erro
-                return false;
+                throw;
             }
             catch (Exception ex)
             {
